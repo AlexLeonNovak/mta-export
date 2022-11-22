@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
-  "type": "module",
   "scripts": {
     "start": "tsc && node dist/index.js",
     "lint": "eslint . --ext .ts"
@@ -24,6 +23,7 @@
     "dotenv": "^16.0.2",
     "fast-xml-parser": "^4.0.10",
     "luxon": "^3.0.4",
+    "msnodesqlv8": "^2.7.0",
     "mssql": "^9.0.1",
     "qs": "^6.11.0"
   }

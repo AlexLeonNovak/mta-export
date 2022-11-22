@@ -176,4 +176,10 @@ export class MauticApiService {
       return null;
     }
   }
+
+  async batchCreateLeads(leads) {
+    const { data } = await this.api.post('/contacts/batch/new', leads);
+    return data;
+  }
 }
+

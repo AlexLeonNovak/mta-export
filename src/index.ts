@@ -1,10 +1,23 @@
 import 'dotenv/config';
 import {DbService} from './services/db.service';
+import { MauticApiService } from './services/mautic-api.service';
+import { arrayChunk } from './utils/chunk.array';
+import { toMautic } from './utils/data.adapter';
 
 const bootstrap = async () => {
+  try {
   const db = new DbService();
-  const res = await db.getData('GilboaNet');
-  console.log(res);
+  const result = await db.getData('vw_Personalx_Leads', 0, 10);
+  const mauticApi = new MauticApiService();
+  const allLeads = Object.values(result).map(toMautic);
+  const chunks = arrayChunk(allLeads, 200);
+  for (const leads of chunks) {
+    const data = await mauticApi.batchCreateLeads(leads);
+    console.log(data);
+  }
+  } catch(e) {
+    console.error(e);
+  }
 }
 
 bootstrap();
