@@ -3,18 +3,18 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
         firstname: mtaFields['FirstName'],
         lastname: mtaFields['Surname'],
         mobile: mtaFields['Phone_Number_3'],
-        email: mtaFields['Home_email'],
-        studytype: mtaFields['Description_of_Group'],
-        mailingconfirmation: mtaFields['ApproveMail'],
-        newleaddate: mtaFields['CreationDate'],
-        signupdate: mtaFields['RegistrationDate'],
-        Consultantname: mtaFields['Name_of_Consultant'],
+        email: mtaFields['Home_email'] && mtaFields['Home_email'].trim() || mtaFields['Phone_Number_3'] + '@email.com',
+        studytype: mtaFields['Description_of_Group'] || 'empty',
+        //mailingconfirmation: mtaFields['ApproveMail'] || 'empty', // lead tbl
+        newleaddate: mtaFields['Creation_Date'],
+        //signupdate: mtaFields['RegistrationDate'],
+        //Consultantname: mtaFields['Name_of_Consultant'],
         Consultdate: mtaFields['Planned_Date'],
         Consulthour: mtaFields['Scheduled_Hour'],
         yearstartdate: new Date('October 23, 2022 11:00 AM'),
-        yearstartmonth: new Date('October'),
+        yearstartmonth: 'October',
         nextyearstartdate: new Date('October 22, 2023 11:00 AM'),
-        nextyearstartmonth: new Date('October'),
+        nextyearstartmonth: 'October',
     };
 
     if([1, 2].includes(+mtaFields['Event_Description'])) {
@@ -32,35 +32,38 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
         case 2:
             fields['leadsource'] = 'קליטת ליד טלפונית';
             break;
+        case 4:
+            fields['consultantname'] = mtaFields['Name_of_Consultant'];
+            break;
         case 57:
-            fields['Clarificationcall'] = 'שיחת בירור פסיכומטרי';
+            fields['clarificationcall'] = 'שיחת בירור פסיכומטרי';
             break;
         case 59:
-            fields['Clarificationcall'] = 'שיחת בירור בגרות';
+            fields['clarificationcall'] = 'שיחת בירור בגרות';
             break;
         case 60:
-            fields['Clarificationcall'] = 'שיחת בירור דחית לימודים';
+            fields['clarificationcall'] = 'שיחת בירור דחית לימודים';
             break;
         case 61:
-            fields['Clarificationcall'] = 'שיחת בירור הופנה לרישום';
+            fields['clarificationcall'] = 'שיחת בירור הופנה לרישום';
             break;
         case 3:
-            fields['Clarificationcall'] = 'שיחת בירור יזומה';
+            fields['clarificationcall'] = 'שיחת בירור יזומה';
             break;
         case 56:
-            fields['Clarificationcall'] = 'שיחת בירור לא ענה';
+            fields['clarificationcall'] = 'שיחת בירור לא ענה';
             break;
         case 58:
-            fields['Clarificationcall'] = 'שיחת בירור מתלבט';
+            fields['clarificationcall'] = 'שיחת בירור מתלבט';
             break;
         case 50:
-            fields['Clarificationcall'] = 'חברה ערבית שיחת בירור ';
+            fields['clarificationcall'] = 'חברה ערבית שיחת בירור ';
             break;
     }
 
     switch (mtaFields['Result_Description']) {
         case 'קביעת פגישת יעוץ - וידאו':
-            fields['Scheduleconsultant'] = 'קביעת פגישת יעוץ - וידאו';
+            fields['scheduleconsultant'] = 'קביעת פגישת יעוץ - וידאו';
             break;
         case 'יעוץ-מתלבט עומד בחתכי קבלה':
             fields['Consultantresult'] = 'יעוץ-מתלבט עומד בחתכי קבלה';
@@ -117,6 +120,9 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
             break;
         case 65:
             fields['notsurestatus'] = 'מתלבט- תחום אחר';
+            break;
+        case 68:
+            fields['notsurestatus'] = 'מתלבט בין תוכניות לימודים';
             break;
         case 125:
             fields['bagrutstatus'] = 'מתלבט צריך לשפר בגרות';
@@ -214,14 +220,23 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
         case 400:
             fields['signedup'] = 'נרשם לקבוצה אחרת';
             break;
+        case 81:
+            fields['Counselingstatus'] = 'מגיע לפגישה';
+            break;
+        case 87:
+            fields['Counselingstatus'] = 'לא מגיע לפגישה';
+            break;
+        case 82:
+            fields['Counselingstatus'] = 'דחיית מועד פגישה';
+            break;
         case 33:
-            fields['Scheduleconsultant'] = 'קביעת פגישת יעוץ-טלפונית';
+            fields['scheduleconsultant'] = 'קביעת פגישת יעוץ-טלפונית';
             break;
         case 3:
-            fields['Scheduleconsultant'] = 'קביעת פגישת יעוץ';
+            fields['scheduleconsultant'] = 'קביעת פגישת יעוץ';
             break;
         case 85:
-            fields['Scheduleconsultant'] = 'קביעה חוזרת –פגישת יעוץ';
+            fields['scheduleconsultant'] = 'קביעה חוזרת –פגישת יעוץ';
             break;
         case 215:
             fields['Consultantresult'] = 'יעוץ-מתלבט מוסד אחר';

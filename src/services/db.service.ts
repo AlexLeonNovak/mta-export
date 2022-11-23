@@ -27,10 +27,11 @@ export class DbService {
     return this._connection;
   }
 
-  async getData(tableName, offset = 0, limit = 1000) {
+  async getCRMData(offset = 0, limit = 1000) {
       const sql = `SELECT *
-                   FROM dbo.${tableName}
-                   ORDER BY LeadID
+                   FROM dbo.vw_Personalx_Crm
+                   WHERE Phone_Number_3 != '' OR Home_email != ''
+                   ORDER BY timestamp DESC
                    OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY
                    ;
       `;

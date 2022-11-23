@@ -7,7 +7,7 @@ import { toMautic } from './utils/data.adapter';
 const bootstrap = async () => {
   try {
   const db = new DbService();
-  const result = await db.getData('vw_Personalx_Crm', 0, 10);
+  const result = await db.getCRMData(0, 1000);
   const mauticApi = new MauticApiService();
   const allLeads = Object.values(result).map(toMautic);
   const chunks = arrayChunk(allLeads, 200);
