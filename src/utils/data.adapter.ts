@@ -66,7 +66,7 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
             fields['scheduleconsultant'] = 'קביעת פגישת יעוץ - וידאו';
             break;
         case 'יעוץ-מתלבט עומד בחתכי קבלה':
-            fields['Consultantresult'] = 'יעוץ-מתלבט עומד בחתכי קבלה';
+            fields['consultantresult'] = 'יעוץ-מתלבט עומד בחתכי קבלה';
     }
 
     switch (+mtaFields['Result_Description_Code']) {
@@ -90,33 +90,30 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
             break;
         case 10:
             fields['psychometricstatus'] = 'פסיכומטרי דצמבר מתכוון לעשות';
-            fields['Psychometricmonth'] = 'דצמבר';
+            fields['psychometricmonth'] = 'דצמבר';
             fields['Psychometricdate'] = new Date('12/23/2022 11:38:00');
             fields['psychometricresult'] = new Date('2/2/2023 11:00:00');
             break;
         case 11:
             fields['psychometricstatus'] = 'פסיכומטרי מרץ מתכוון לעשות';
-            fields['Psychometricmonth'] = 'מרץ';
+            fields['psychometricmonth'] = 'מרץ';
             fields['Psychometricdate'] = new Date('4/2/2023 11:00:00');
             fields['psychometricresult'] = new Date('5/16/2022 11:00:00');
             break;
         case 14:
             fields['psychometricstatus'] = 'פסיכומטרי יולי מתכוון לעשות';
-            fields['Psychometricmonth'] = 'יולי';
+            fields['psychometricmonth'] = 'יולי';
             fields['Psychometricdate'] = new Date('7/5/2023 11:00:00');
             fields['psychometricresult'] = new Date('8/15/2023 11:00:00');
             break;
         case 13:
             fields['psychometricstatus'] = 'פסיכומטרי ספטמבר מתכוון לעשות';
-            fields['Psychometricmonth'] = 'ספטמבר';
+            fields['psychometricmonth'] = 'ספטמבר';
             fields['Psychometricdate'] = new Date('9/4/2023 11:00:00');
             fields['psychometricresult'] = new Date('10/15/2023 11:00:00');
             break;
         case 122:
             fields['notsurestatus'] = 'מתלבט עומד בחתכי קבלה';
-            break;
-        case 215:
-            fields['notsurestatus'] = 'מתלבט -מוסד אחר';
             break;
         case 65:
             fields['notsurestatus'] = 'מתלבט- תחום אחר';
@@ -153,6 +150,10 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
             fields['opendaystatus'] = 'מתלבט אם להגיע למפגש';
             fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
             fields['open_day_date'] = new Date('1/27/2023 11:00:00');
+
+            // fields['opendaystatus'] = 'מתלבט אם להגיע ליום פתוח';
+            // fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
+            // fields['open_day_date'] = new Date('1/27/2023 11:00:00');
             break;
         case 83:
             fields['opendaystatus'] = 'לא מגיע ליום פתוח ';
@@ -169,25 +170,20 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
             fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
             fields['open_day_date'] = new Date('1/27/2023 11:00:00');
             break;
-        case 91:
-            fields['opendaystatus'] = 'מתלבט אם להגיע ליום פתוח';
-            fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
-            fields['open_day_date'] = new Date('1/27/2023 11:00:00');
-            break;
         case 205:
             fields['opendaystatus'] = 'יעוץ-מעוניין להגיע ליום פתוח ';
             fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
             fields['open_day_date'] = new Date('1/27/2023 11:00:00');
             break;
         case 61:
-            fields['Postponestatus'] = 'דחית לימודים לאוקטובר הבא';
+            fields['postponestatus'] = 'דחית לימודים לאוקטובר הבא';
             fields['octoberdate'] = new Date('10/23/2022 10:00:00');
             break;
         case 426:
-            fields['Postponestatus'] = 'מעוניין להירשם לאוקטובר הקרוב';
+            fields['postponestatus'] = 'מעוניין להירשם לאוקטובר הקרוב';
             break;
         case 60:
-            fields['Postponestatus'] = 'דחית לימודים לסמסטר אביב';
+            fields['postponestatus'] = 'דחית לימודים לסמסטר אביב';
             fields['springdate'] = new Date('2/28/2023 10:00:00');
             break;
         case 69:
@@ -221,13 +217,13 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
             fields['signedup'] = 'נרשם לקבוצה אחרת';
             break;
         case 81:
-            fields['Counselingstatus'] = 'מגיע לפגישה';
+            fields['counselingstatus'] = 'מגיע לפגישה';
             break;
         case 87:
-            fields['Counselingstatus'] = 'לא מגיע לפגישה';
+            fields['counselingstatus'] = 'לא מגיע לפגישה';
             break;
         case 82:
-            fields['Counselingstatus'] = 'דחיית מועד פגישה';
+            fields['counselingstatus'] = 'דחיית מועד פגישה';
             break;
         case 33:
             fields['scheduleconsultant'] = 'קביעת פגישת יעוץ-טלפונית';
@@ -239,67 +235,68 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
             fields['scheduleconsultant'] = 'קביעה חוזרת –פגישת יעוץ';
             break;
         case 215:
-            fields['Consultantresult'] = 'יעוץ-מתלבט מוסד אחר';
+            fields['consultantresult'] = 'יעוץ-מתלבט מוסד אחר';
+            fields['notsurestatus'] = 'מתלבט -מוסד אחר';
             break;
         case 217:
-            fields['Consultantresult'] = 'יעוץ-מתלבט תחום אחר';
+            fields['consultantresult'] = 'יעוץ-מתלבט תחום אחר';
             break;
         case 220:
-            fields['Consultantresult'] = 'יעוץ-מתלבט בין תוכניות לימודים';
+            fields['consultantresult'] = 'יעוץ-מתלבט בין תוכניות לימודים';
             break;
         case 290:
-            fields['Consultantresult'] = 'יעוץ-נרשם';
+            fields['consultantresult'] = 'יעוץ-נרשם';
             break;
         case 216:
-            fields['Consultantresult'] = 'יעוץ-מתלבט שיפורים';
+            fields['consultantresult'] = 'יעוץ-מתלבט שיפורים';
             break;
         case 218:
-            fields['Consultantresult'] = 'יעוץ-מתלבט מתי להתחיל ללמוד ';
+            fields['consultantresult'] = 'יעוץ-מתלבט מתי להתחיל ללמוד ';
             break;
         case 219:
-            fields['Consultantresult'] = 'יעוץ-מתלבט טרם קיבל החלטה ';
+            fields['consultantresult'] = 'יעוץ-מתלבט טרם קיבל החלטה ';
             break;
         case 212:
-            fields['Consultantresult'] = 'יעוץ-לא רלוונטי';
+            fields['consultantresult'] = 'יעוץ-לא רלוונטי';
             break;
         case 221:
-            fields['Consultantresult'] = 'יעוץ- לא הגיע לפגישה';
+            fields['consultantresult'] = 'יעוץ- לא הגיע לפגישה';
             break;
         case 211:
-            fields['Consultantresult'] = 'יעוץ-רלוונטי למכינה';
+            fields['consultantresult'] = 'יעוץ-רלוונטי למכינה';
             break;
         case 214:
-            fields['Consultantresult'] = 'יעוץ-דחיית לימודים לאוקטובר';
+            fields['consultantresult'] = 'יעוץ-דחיית לימודים לאוקטובר';
             break;
         case 213:
-            fields['Consultantresult'] = 'יעוץ-דחיית לימודים אביב';
+            fields['consultantresult'] = 'יעוץ-דחיית לימודים אביב';
             break;
         case 210:
-            fields['Consultantresult'] = 'יעוץ-בגרות קיץ';
+            fields['consultantresult'] = 'יעוץ-בגרות קיץ';
             break;
         case 209:
-            fields['Consultantresult'] = 'יעוץ-בגרות חורף';
+            fields['consultantresult'] = 'יעוץ-בגרות חורף';
             break;
         case 208:
-            fields['Consultantresult'] = 'יעוץ-יירשם בעתיד';
+            fields['consultantresult'] = 'יעוץ-יירשם בעתיד';
             break;
         case 200:
-            fields['Consultantresult'] = 'יעוץ-פסיכומטרי דצמבר';
+            fields['consultantresult'] = 'יעוץ-פסיכומטרי דצמבר';
             break;
         case 203:
-            fields['Consultantresult'] = 'יעוץ-פסיכומטרי ספטמבר';
+            fields['consultantresult'] = 'יעוץ-פסיכומטרי ספטמבר';
             break;
         case 204:
-            fields['Consultantresult'] = 'יעוץ-פסיכומטרי יולי';
+            fields['consultantresult'] = 'יעוץ-פסיכומטרי יולי';
             break;
         case 201:
-            fields['Consultantresult'] = 'יעוץ-פסיכומטרי מרץ';
+            fields['consultantresult'] = 'יעוץ-פסיכומטרי מרץ';
             break;
         case 206:
-            fields['Consultantresult'] = 'יעוץ-מכינה לדוברי ערבית';
+            fields['consultantresult'] = 'יעוץ-מכינה לדוברי ערבית';
             break;
         case 116:
-            fields['Consultantresult'] = 'טלמרקטינג-ביטל/דחה פגישה';
+            fields['consultantresult'] = 'טלמרקטינג-ביטל/דחה פגישה';
             break;
 
     }
