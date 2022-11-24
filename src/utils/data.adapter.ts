@@ -1,11 +1,14 @@
+import { DateTime } from "luxon";
+
 export const toMautic = (mtaFields: Record<string, any>): Record<string, any> => {
     const fields = {
         firstname: mtaFields['FirstName'],
         lastname: mtaFields['Surname'],
         mobile: mtaFields['Phone_Number_3'],
         email: mtaFields['Home_email'] && mtaFields['Home_email'].trim() || mtaFields['Phone_Number_3'] + '@email.com',
-        studytype: mtaFields['Description_of_Group'] || 'empty',
-        //mailingconfirmation: mtaFields['ApproveMail'] || 'empty', // lead tbl
+        /** TODO: Fix options in mautic */
+        //studytype: mtaFields['Description_of_Group'] || 'empty', 
+        mailingconfirmation: false, //mtaFields['ApproveMail'] || 'empty', // lead tbl
         newleaddate: mtaFields['Creation_Date'],
         //signupdate: mtaFields['RegistrationDate'],
         //Consultantname: mtaFields['Name_of_Consultant'],
