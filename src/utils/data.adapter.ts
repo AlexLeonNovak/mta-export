@@ -1,18 +1,20 @@
 import { DateTime } from "luxon";
 
 export const toMautic = (mtaFields: Record<string, any>): Record<string, any> => {
+    const consultdate = DateTime.fromFormat(mtaFields['Planned_Date'], 'dd/MM/yyyy').toJSDate();
+    const newleaddate = DateTime.fromFormat(mtaFields['Creation_Date'], 'yyyyMMdd').toJSDate();
     const fields = {
         firstname: mtaFields['FirstName'],
         lastname: mtaFields['Surname'],
         mobile: mtaFields['Phone_Number_3'],
         email: mtaFields['Home_email'] && mtaFields['Home_email'].trim() || mtaFields['Phone_Number_3'] + '@email.com',
         /** TODO: Fix options in mautic */
-        //studytype: mtaFields['Description_of_Group'] || 'empty', 
+        //studytype: mtaFields['Description_of_Group'] || 'empty',
         mailingconfirmation: false, //mtaFields['ApproveMail'] || 'empty', // lead tbl
-        newleaddate: mtaFields['Creation_Date'],
+        newleaddate,
         //signupdate: mtaFields['RegistrationDate'],
         //Consultantname: mtaFields['Name_of_Consultant'],
-        consultdate: mtaFields['Planned_Date'],
+        consultdate,
         consulthour: mtaFields['Scheduled_Hour'],
         yearstartdate: new Date('October 23, 2022 11:00 AM'),
         yearstartmonth: 'October',
