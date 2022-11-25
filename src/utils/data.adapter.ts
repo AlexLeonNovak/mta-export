@@ -311,6 +311,66 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
             break;
     }
 
+    switch (+mtaFields['Description_of_Group_Code']) {
+        case 1155:
+        case 1158:
+        case 1129:
+        case 1159:
+            fields['studytype'] = 'תואר ראשון במדעי המחשב';
+            break;
+        case 2767:
+        case 2773:
+        case 2775:
+            fields['studytype'] = 'תואר ראשון במערכות מידע';
+            break;
+        case 2160:
+            fields['studytype'] = 'תואר ראשון בכלכלה וניהול';
+            break;
+        case 3147:
+        case 3150:
+        case 3148:
+        case 3143:
+        case 3149:
+        case 3151:
+        case 3142:
+            fields['studytype'] = 'תואר ראשון בפסיכולוגיה';
+            break;
+        case 6103:
+        case 6600:
+            fields['studytype'] = 'תואר ראשון בסיעוד';
+            break;
+        case 6701:
+        case 6700:
+        case 6702:
+            fields['studytype'] = 'תואר ראשון בסיעוד - הסבת אקדמאים';
+            break;
+        case 4144:
+        case 4550:
+            fields['studytype'] = 'תואר ראשון מדעי המדינה וסוציולוגיה';
+            break;
+        case 9202:
+        case 9201:
+            fields['studytype'] = 'מכינה לעתיד לחברה הערבית';
+            break;
+        case 2202:
+            fields['studytype'] = 'תואר שני במנהל עסקים';
+            break;
+        case 2900:
+            fields['studytype'] = 'תואר שני בייעוץ ופיתוח ארגוני';
+            break;
+        case 4200:
+        case 4202:
+            fields['studytype'] = 'תואר שני בלימודי משפחה';
+            break;
+        case 1225:
+        case 1226:
+            fields['studytype'] = 'תואר שני במדעי המחשב';
+            break;
+        case 3999:
+            fields['studytype'] = 'תואר שני בפסיכולוגיה';
+            break;
+    }
+
 
     return fields;
 }
