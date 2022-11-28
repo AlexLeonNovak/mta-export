@@ -55,8 +55,7 @@ const bootstrap = async () => {
       if ('statusCodes' in result) {
         result.statusCodes.forEach((code, index) => {
           const logResult = {
-            // TODO: change to MTA
-            booknetCustomerId: leads[index].customerid,
+            email: leads[index].email,
             statusCode: code,
             errors: null,
             mauticId: null
