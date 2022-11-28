@@ -8,8 +8,6 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
         lastname: mtaFields['Surname'],
         mobile: mtaFields['Phone_Number_3'],
         email: mtaFields['Home_email'] && mtaFields['Home_email'].trim() || mtaFields['Phone_Number_3'] + '@email.com',
-        /** TODO: Fix options in mautic */
-        //studytype: mtaFields['Description_of_Group'] || 'empty',
         mailingconfirmation: false, //mtaFields['ApproveMail'] || 'empty', // lead tbl
         newleaddate,
         //signupdate: mtaFields['RegistrationDate'],

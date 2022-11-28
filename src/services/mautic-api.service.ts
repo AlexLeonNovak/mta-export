@@ -57,6 +57,11 @@ interface IdInfo {
   endId: number;
 }
 
+export enum Field {
+  studytype = 45,
+  scheduleconsultant = 98,
+}
+
 export class MauticApiService {
   private readonly api: AxiosInstance;
   constructor() {
@@ -180,6 +185,11 @@ export class MauticApiService {
   async batchCreateLeads(leads) {
     const { data } = await this.api.post('/contacts/batch/new', leads);
     return data;
+  }
+
+  async getFieldValues(field: Field) {
+    const { data } = await this.api.get(`/fields/contact/${field}`);
+    return data.field.properties.list.map(({ value }) => value);
   }
 }
 
