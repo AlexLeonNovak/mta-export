@@ -42,9 +42,9 @@ export class DbService {
       return recordset;
   }
 
-  async getCount(tableName) {
-    const sql = `SELECT COUNT(*) c FROM dbo.${tableName} 
-               WHERE (Email IS NOT NULL OR LTRIM(RTRIM(Email)) != '') AND Mobile IS NOT NULL
+  async getCount() {
+    const sql = `SELECT COUNT(*) c FROM dbo.vw_Personalx_Crm 
+        WHERE Phone_Number_3 != '' OR Home_email != ''
   `;
     const connection = await this.getConnection();
     const { recordset } = await connection.request().query(sql);

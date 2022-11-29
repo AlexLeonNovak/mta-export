@@ -10,18 +10,20 @@ const bootstrap = async () => {
     const db = new DbService();
     const mauticApi = new MauticApiService();
     const logger = new Logger();
+    clog('Getting data from DB...');
     let crmData;
     try {
-      crmData = await db.getCRMData(0, 100);
+      crmData = await db.getCRMData(0, 10000);
     } catch(e) {
       console.error(e);
     }
+    clog('Prepare data for mautic...');
     const studyTypes = await mauticApi.getFieldValues(Field.studytype);
     const scheduleConsultants = await mauticApi.getFieldValues(Field.scheduleconsultant);
     const allLeads = Object.values(crmData).map(lead => {
       const fields = toMautic(lead);
       if ('studytype' in fields && !studyTypes.includes(fields.studytype)) {
-        logger.log(JSON.stringify({
+        logger.error(JSON.stringify({
           skip: {
             field: 'studytype',
             value: fields.studytype
@@ -30,7 +32,7 @@ const bootstrap = async () => {
         delete fields.studytype;
       }
       if ('scheduleconsultant' in fields && !scheduleConsultants.includes(fields.scheduleconsultant)) {
-        logger.log(JSON.stringify({
+        logger.error(JSON.stringify({
           skip: {
             field: 'scheduleconsultant',
             value: fields.scheduleconsultant
@@ -40,8 +42,11 @@ const bootstrap = async () => {
       }
       return fields;
     });
+    clog('Export data to mautic...');
     const chunks = arrayChunk(allLeads, 200);
+    let page = 1;
     for (const leads of chunks) {
+      clog(`Page ${page} of ${chunks.length}`);
       let result;
       try {
         result = await mauticApi.batchCreateLeads(leads);
@@ -66,8 +71,9 @@ const bootstrap = async () => {
             const errors = [];
             for (const field in result.errors[index].details) {
               errors.push({
+                field,
                 errorMessages: result.errors[index].details[field],
-                booknetValue: leads[index][field],
+                mtaValue: leads[index][field],
               })
             }
             logResult.errors = errors;
@@ -77,8 +83,9 @@ const bootstrap = async () => {
               : logger.log(JSON.stringify(logResult));
         });
       }
-      clog('Done');
+      page++;
     }
+    clog('Done');
 }
 
 bootstrap();
