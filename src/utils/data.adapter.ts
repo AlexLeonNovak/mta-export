@@ -4,7 +4,7 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
     const consultdate = DateTime.fromFormat(mtaFields['Planned_Date'], 'dd/MM/yyyy').toJSDate();
     const newleaddate = DateTime.fromFormat(mtaFields['Creation_Date'], 'yyyyMMdd').toJSDate();
     const fields = {
-        firstname: mtaFields['FirstName'],
+        firstname: mtaFields['FirstName'] && mtaFields['FirstName'].trim() || mtaFields['Surname'],
         lastname: mtaFields['Surname'],
         mobile: mtaFields['Phone_Number_3'],
         email: mtaFields['Home_email'] && mtaFields['Home_email'].trim() || mtaFields['Phone_Number_3'] + '@email.com',
