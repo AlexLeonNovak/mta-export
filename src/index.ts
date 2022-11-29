@@ -8,8 +8,11 @@ import {clog} from './utils/clog';
 const {FETCH_LIMIT = 200} = process.env;
 
 const bootstrap = async () => {
+  clog('Start process');
   const db = new DbService();
   const mauticApi = new MauticApiService();
+  const studyTypes = await mauticApi.getFieldValues(Field.studytype);
+  const scheduleConsultants = await mauticApi.getFieldValues(Field.scheduleconsultant);
   const logger = new Logger();
   const count = await db.getCount();
   clog('Count records:', count);
@@ -26,9 +29,7 @@ const bootstrap = async () => {
       clog('ERROR', e);
       break;
     }
-    clog('Prepare data for mautic...');
-    const studyTypes = await mauticApi.getFieldValues(Field.studytype);
-    const scheduleConsultants = await mauticApi.getFieldValues(Field.scheduleconsultant);
+
     const leads = Object.values(crmData).map(lead => {
       const fields = toMautic(lead);
       if ('studytype' in fields && !studyTypes.includes(fields.studytype)) {
