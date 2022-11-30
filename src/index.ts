@@ -5,11 +5,15 @@ import {toMautic} from './utils/data.adapter';
 import {Logger} from './utils/logger';
 import {clog} from './utils/clog';
 import {arrayChunk} from './utils/chunk.array';
+import {saveCSV} from './services/csv.service';
+import * as path from 'path';
+import {DateTime} from 'luxon';
 
 const {FETCH_LIMIT = 200} = process.env;
 
 const bootstrap = async () => {
   clog('Start process');
+  const csvName = path.join('..', `log_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
   const db = new DbService();
   const mauticApi = new MauticApiService();
   const studyTypes = await mauticApi.getFieldValues(Field.studytype);
@@ -77,10 +81,12 @@ const bootstrap = async () => {
             errors: null,
             mauticId: null,
           };
+          leads[index].statusCode = code;
           if ([200, 201].includes(code)) {
-            logResult.mauticId = result.contacts[index].id;
+            leads[index].mauticId = logResult.mauticId = result.contacts[index].id;
           } else if ('errors' in result) {
             const errors = [];
+            leads[index].errors = null;
             for (const field in result.errors[index].details) {
               errors.push({
                 field,
@@ -89,12 +95,14 @@ const bootstrap = async () => {
               })
             }
             logResult.errors = errors;
+            leads[index].errors = JSON.stringify(errors);
           }
           logResult.errors !== null
             ? logger.error(JSON.stringify(logResult))
             : logger.log(JSON.stringify(logResult));
         });
       }
+      saveCSV(csvName, leads);
     }
   }
   clog('Done');
