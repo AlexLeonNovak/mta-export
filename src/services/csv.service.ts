@@ -9,6 +9,7 @@ export const saveCSV = (filename: string, data: Record<string, string>[]) => {
   for (let i of data) {
     if (isNewFile) {
       stream.write(Object.keys(i).join(",") + "\r\n");
+      isNewFile = false;
     }
     stream.write(Object.values(i).join(",") + "\r\n");
   }

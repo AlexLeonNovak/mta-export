@@ -13,7 +13,7 @@ const {FETCH_LIMIT = 200} = process.env;
 
 const bootstrap = async () => {
   clog('Start process');
-  const csvName = path.join('..', `log_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
+  const csvName = path.join(__dirname, '..', `log_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
   const db = new DbService();
   const mauticApi = new MauticApiService();
   const studyTypes = await mauticApi.getFieldValues(Field.studytype);
