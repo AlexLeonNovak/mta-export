@@ -18,11 +18,12 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
         yearstartmonth: 'October',
         nextyearstartdate: new Date('October 22, 2023 11:00 AM'),
         nextyearstartmonth: 'October',
+        // mainleadstatus :'בתהליך',
     };
 
-    if([1, 2].includes(+mtaFields['Event_Description'])) {
+    if([1, 2].includes(+mtaFields['Event_Description_Code'])) {
         fields['mainleadstatus'] = "חדש";
-    } else if ([4, 5].includes(+mtaFields['Event_Description'])) {
+    } else if ([4, 5].includes(+mtaFields['Event_Description_Code'])) {
         fields['mainleadstatus'] = "פגישת יעוץ";
     } else {
         fields['mainleadstatus'] = "בתהליך";
