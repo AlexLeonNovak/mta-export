@@ -34,7 +34,7 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
         yearstartmonth: 'October',
         nextyearstartdate: new Date('October 22, 2023 11:00 AM'),
         nextyearstartmonth: 'October',
-        mainleadstatus: mtaFields['mainleadstatus'],
+        mainleadstatus: mtaFields['mainleadstatus'] || 'חדש',
     };
 
     switch (+mtaFields['Event_Description_Code']) {
