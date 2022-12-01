@@ -24,7 +24,7 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
         lastname: mtaFields['Surname'],
         mobile: mtaFields['Phone_Number_3'],
         email: mtaFields['Home_email'] && mtaFields['Home_email'].trim() || mtaFields['Phone_Number_3'] + '@email.com',
-        mailingconfirmation: 'ApproveMail' in mtaFields && mtaFields['ApproveMail'] || false, // lead tbl
+        mailingconfirmation: 'mailingconfirmationcode' in mtaFields && +mtaFields['mailingconfirmationcode'] === 1 || false, // lead tbl
         newleaddate,
         //signupdate: mtaFields['RegistrationDate'],
         //Consultantname: mtaFields['Name_of_Consultant'],
@@ -318,65 +318,7 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
             break;
     }
 
-    switch (+mtaFields['Description_of_Group_Code']) {
-        case 1155:
-        case 1158:
-        case 1129:
-        case 1159:
-            fields['studytype'] = 'תואר ראשון במדעי המחשב';
-            break;
-        case 2767:
-        case 2773:
-        case 2775:
-            fields['studytype'] = 'תואר ראשון במערכות מידע';
-            break;
-        case 2160:
-            fields['studytype'] = 'תואר ראשון בכלכלה וניהול';
-            break;
-        case 3147:
-        case 3150:
-        case 3148:
-        case 3143:
-        case 3149:
-        case 3151:
-        case 3142:
-            fields['studytype'] = 'תואר ראשון בפסיכולוגיה';
-            break;
-        case 6103:
-        case 6600:
-            fields['studytype'] = 'תואר ראשון בסיעוד';
-            break;
-        case 6701:
-        case 6700:
-        case 6702:
-            fields['studytype'] = 'תואר ראשון בסיעוד - הסבת אקדמאים';
-            break;
-        case 4144:
-        case 4550:
-            fields['studytype'] = 'תואר ראשון מדעי המדינה וסוציולוגיה';
-            break;
-        case 9202:
-        case 9201:
-            fields['studytype'] = 'מכינה לעתיד לחברה הערבית';
-            break;
-        case 2202:
-            fields['studytype'] = 'תואר שני במנהל עסקים';
-            break;
-        case 2900:
-            fields['studytype'] = 'תואר שני בייעוץ ופיתוח ארגוני';
-            break;
-        case 4200:
-        case 4202:
-            fields['studytype'] = 'תואר שני בלימודי משפחה';
-            break;
-        case 1225:
-        case 1226:
-            fields['studytype'] = 'תואר שני במדעי המחשב';
-            break;
-        case 3999:
-            fields['studytype'] = 'תואר שני בפסיכולוגיה';
-            break;
-    }
+
 
 
     return fields;
@@ -387,11 +329,73 @@ export const leadsToMautic = (mtaFields: Record<string, any>[]): Record<string, 
 }
 
 const leadToMauticField = (mtaFields: Record<string, any>) => {
-    return {
+    const fields = {
         firstname: mtaFields['FirstName'] && mtaFields['FirstName'].trim() || mtaFields['LastName'],
         lastname: mtaFields['LastName'],
         mobile: mtaFields['Mobile'],
         email: mtaFields['EMail'] && mtaFields['EMail'].trim() || mtaFields['Mobile'] + '@email.com',
         mailingconfirmation: mtaFields['ApproveMail'],
     }
+    if ('Description_of_Group_Code' in mtaFields) {
+        switch (+mtaFields['Description_of_Group_Code']) {
+            case 1155:
+            case 1158:
+            case 1129:
+            case 1159:
+                fields['studytype'] = 'תואר ראשון במדעי המחשב';
+                break;
+            case 2767:
+            case 2773:
+            case 2775:
+                fields['studytype'] = 'תואר ראשון במערכות מידע';
+                break;
+            case 2160:
+                fields['studytype'] = 'תואר ראשון בכלכלה וניהול';
+                break;
+            case 3147:
+            case 3150:
+            case 3148:
+            case 3143:
+            case 3149:
+            case 3151:
+            case 3142:
+                fields['studytype'] = 'תואר ראשון בפסיכולוגיה';
+                break;
+            case 6103:
+            case 6600:
+                fields['studytype'] = 'תואר ראשון בסיעוד';
+                break;
+            case 6701:
+            case 6700:
+            case 6702:
+                fields['studytype'] = 'תואר ראשון בסיעוד - הסבת אקדמאים';
+                break;
+            case 4144:
+            case 4550:
+                fields['studytype'] = 'תואר ראשון מדעי המדינה וסוציולוגיה';
+                break;
+            case 9202:
+            case 9201:
+                fields['studytype'] = 'מכינה לעתיד לחברה הערבית';
+                break;
+            case 2202:
+                fields['studytype'] = 'תואר שני במנהל עסקים';
+                break;
+            case 2900:
+                fields['studytype'] = 'תואר שני בייעוץ ופיתוח ארגוני';
+                break;
+            case 4200:
+            case 4202:
+                fields['studytype'] = 'תואר שני בלימודי משפחה';
+                break;
+            case 1225:
+            case 1226:
+                fields['studytype'] = 'תואר שני במדעי המחשב';
+                break;
+            case 3999:
+                fields['studytype'] = 'תואר שני בפסיכולוגיה';
+                break;
+        }
+    }
+    return fields;
 }
