@@ -10,6 +10,8 @@ export const CRMToMautic = (mtaFields: Record<string, any>[]): Record<string, an
             field['mainleadstatus'] = "בתהליך";
         } else if (users.some(u => [1,2].includes(+u['Event_Description_Code']))) {
             field['mainleadstatus'] = "חדש";
+        } else {
+            field['mainleadstatus'] = "חדש";
         }
         return field;
     });
@@ -334,7 +336,7 @@ const leadToMauticField = (mtaFields: Record<string, any>) => {
         lastname: mtaFields['LastName'],
         mobile: mtaFields['Mobile'],
         email: mtaFields['EMail'] && mtaFields['EMail'].trim() || mtaFields['Mobile'] + '@email.com',
-        mailingconfirmation: mtaFields['ApproveMail'],
+        mailingconfirmation: mtaFields['ApproveMail'] === "כן",
     }
     if ('Description_of_Group_Code' in mtaFields) {
         switch (+mtaFields['Description_of_Group_Code']) {
