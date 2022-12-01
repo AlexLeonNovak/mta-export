@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import {Command} from 'commander/esm.mjs'
+import {Command} from 'commander';
 import {DbService} from './services/db.service';
 import {Field, MauticApiService} from './services/mautic-api.service';
 import {CRMToMautic, leadsToMautic} from './utils/data.adapter';
@@ -21,6 +21,8 @@ const logger = new Logger();
 
 const program = new Command();
 program.option('-s, --source <table>', 'Source table');
+program.parse(process.argv);
+
 const { source = Source.CRM } = program.opts();
 
 const {FETCH_LIMIT = 200} = process.env;
