@@ -4,11 +4,11 @@ export const CRMToMautic = (mtaFields: Record<string, any>[]): Record<string, an
     const mtaFieldsArray = Object.values(mtaFields);
     const statusFields = mtaFieldsArray.map(field => {
         const users = mtaFieldsArray.filter(f => f['Prospective_Student_Code'] === field['Prospective_Student_Code']);
-        if (users.some(u => [4,5].includes(u['Event_Description_Code']))) {
+        if (users.some(u => [4,5].includes(+u['Event_Description_Code']))) {
             field['mainleadstatus'] = "פגישת יעוץ";
         } else if (users.some(u => u['Result_Description'] !== '')) {
             field['mainleadstatus'] = "בתהליך";
-        } else if (users.some(u => [1,2].includes(u['Event_Description_Code']))) {
+        } else if (users.some(u => [1,2].includes(+u['Event_Description_Code']))) {
             field['mainleadstatus'] = "חדש";
         }
         return field;

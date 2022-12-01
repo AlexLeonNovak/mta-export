@@ -6,9 +6,9 @@ import {CRMToMautic, leadsToMautic} from './utils/data.adapter';
 import {Logger} from './utils/logger';
 import {clog} from './utils/clog';
 import {arrayChunk} from './utils/chunk.array';
-// import {saveCSV} from './services/csv.service';
-// import * as path from 'path';
-// import {DateTime} from 'luxon';
+import {saveCSV} from './services/csv.service';
+import * as path from 'path';
+import {DateTime} from 'luxon';
 
 enum Source {
   CRM = 'crm',
@@ -80,7 +80,7 @@ const exportToMautic = async (allLeads) => {
 const bootstrap = async () => {
   clog('Start process');
   clog('Source data:', source);
-  // const csvName = path.join(__dirname, '..', `log_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
+  //const csvName = path.join(__dirname, '..', `${source}_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
   if (source === Source.CRM) {
     const studyTypes = await mauticApi.getFieldValues(Field.studytype);
     const scheduleConsultants = await mauticApi.getFieldValues(Field.scheduleconsultant);
@@ -88,7 +88,7 @@ const bootstrap = async () => {
     const count = await db.getCRMCount();
     clog('Count records:', count);
     const limit = Number(FETCH_LIMIT);
-    const pages = Math.ceil(count / limit);
+    const pages = 1; //Math.ceil(count / limit);
     for (let p = 0; p < pages; p++) {
       clog(`DB page: ${p + 1} of pages: ${pages}`);
       let crmData;
@@ -100,7 +100,7 @@ const bootstrap = async () => {
         clog('ERROR', e);
         break;
       }
-
+      //saveCSV(csvName, crmData);
       const allLeads = CRMToMautic(crmData).map(fields => {
         if ('studytype' in fields && !studyTypes.includes(fields.studytype)) {
           logger.error(JSON.stringify({
@@ -130,7 +130,7 @@ const bootstrap = async () => {
     const count = await db.getLeadsCount();
     clog('Count records:', count);
     const limit = Number(FETCH_LIMIT);
-    const pages = Math.ceil(count / limit);
+    const pages = 1; //Math.ceil(count / limit);
     for (let p = 0; p < pages; p++) {
       clog(`DB page: ${p + 1} of pages: ${pages}`);
       let leadsData;
@@ -142,6 +142,7 @@ const bootstrap = async () => {
         clog('ERROR', e);
         break;
       }
+      //saveCSV(csvName, leadsData);
       const allLeads = leadsToMautic(leadsData);
       await exportToMautic(allLeads);
     }
