@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-export const toMautic = (mtaFields: Record<string, any>): Record<string, any> => {
+export const CRMToMautic = (mtaFields: Record<string, any>): Record<string, any> => {
     const consultdate = DateTime.fromFormat(mtaFields['Planned_Date'], 'dd/MM/yyyy').toJSDate();
     const newleaddate = DateTime.fromFormat(mtaFields['Creation_Date'], 'yyyyMMdd').toJSDate();
     const fields = {
@@ -372,4 +372,13 @@ export const toMautic = (mtaFields: Record<string, any>): Record<string, any> =>
 
 
     return fields;
+}
+
+export const leadsToMautic = (mtaFields: Record<string, any>): Record<string, any> => {
+    return {
+        firstname: mtaFields['FirstName'] && mtaFields['FirstName'].trim() || mtaFields['LastName'],
+        lastname: mtaFields['LastName'],
+        mobile: mtaFields['Mobile'],
+        email: mtaFields['EMail'] && mtaFields['EMail'].trim() || mtaFields['Mobile'] + '@email.com',
+    }
 }

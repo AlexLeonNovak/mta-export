@@ -42,7 +42,7 @@ export class DbService {
       return recordset;
   }
 
-  async getCount() {
+  async getCRMCount() {
     const sql = `SELECT COUNT(*) c FROM dbo.vw_Personalx_Crm 
         WHERE Phone_Number_3 != '' OR Home_email != ''
   `;
@@ -60,6 +60,29 @@ export class DbService {
     return recordset;
   }
 
+  async getLeadsCount() {
+    const sql = `SELECT COUNT(*) c FROM dbo.vw_Personalx_Leads 
+        WHERE Mobile != '' OR Email != ''
+  `;
+    const connection = await this.getConnection();
+    const { recordset } = await connection.request().query(sql);
+    return recordset[0].c;
+  }
+
+  async getLeadsData(offset = 0, limit = 1000) {
+    const sql = `SELECT *
+                   FROM dbo.vw_Personalx_Leads
+                 WHERE Mobile != '' OR Email != ''
+                   ORDER BY CreationTime DESC
+                   OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY
+                   ;
+      `;
+    //OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY
+    //WHERE (Email IS NOT NULL OR LTRIM(RTRIM(Email)) != '') AND Mobile IS NOT NULL
+    const connection = await this.getConnection();
+    const {recordset} = await connection.request().query(sql);
+    return recordset;
+  }
 }
 
 //process.on('exit', async () => {

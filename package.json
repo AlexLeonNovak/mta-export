@@ -5,6 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
+    "start:crm": "tsc && node dist/index.js -s crm",
+    "start:leads": "tsc && node dist/index.js -s leads",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
@@ -21,6 +23,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "better-sqlite3": "^7.6.2",
+    "commander": "^9.4.1",
     "csv-stringify": "^6.2.3",
     "dotenv": "^16.0.2",
     "fast-xml-parser": "^4.0.10",
