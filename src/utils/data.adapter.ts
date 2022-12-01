@@ -1,6 +1,22 @@
 import { DateTime } from "luxon";
 
-export const CRMToMautic = (mtaFields: Record<string, any>): Record<string, any> => {
+export const CRMToMautic = (mtaFields: Record<string, any>[]): Record<string, any>[] => {
+    const mtaFieldsArray = Object.values(mtaFields);
+    const statusFields = mtaFieldsArray.map(field => {
+        const users = mtaFieldsArray.filter(f => f['Prospective_Student_Code'] === field['Prospective_Student_Code']);
+        if (users.some(u => [4,5].includes(u['Event_Description_Code']))) {
+            field['mainleadstatus'] = "פגישת יעוץ";
+        } else if (users.some(u => u['Result_Description'] !== '')) {
+            field['mainleadstatus'] = "בתהליך";
+        } else if (users.some(u => [1,2].includes(u['Event_Description_Code']))) {
+            field['mainleadstatus'] = "חדש";
+        }
+        return field;
+    });
+    return statusFields.map(crmToMauticField);
+}
+
+const crmToMauticField = (mtaFields: Record<string, any>) => {
     const consultdate = DateTime.fromFormat(mtaFields['Planned_Date'], 'dd/MM/yyyy').toJSDate();
     const newleaddate = DateTime.fromFormat(mtaFields['Creation_Date'], 'yyyyMMdd').toJSDate();
     const fields = {
@@ -8,7 +24,7 @@ export const CRMToMautic = (mtaFields: Record<string, any>): Record<string, any>
         lastname: mtaFields['Surname'],
         mobile: mtaFields['Phone_Number_3'],
         email: mtaFields['Home_email'] && mtaFields['Home_email'].trim() || mtaFields['Phone_Number_3'] + '@email.com',
-        mailingconfirmation: false, //mtaFields['ApproveMail'] || 'empty', // lead tbl
+        mailingconfirmation: 'ApproveMail' in mtaFields && mtaFields['ApproveMail'] || false, // lead tbl
         newleaddate,
         //signupdate: mtaFields['RegistrationDate'],
         //Consultantname: mtaFields['Name_of_Consultant'],
@@ -18,16 +34,8 @@ export const CRMToMautic = (mtaFields: Record<string, any>): Record<string, any>
         yearstartmonth: 'October',
         nextyearstartdate: new Date('October 22, 2023 11:00 AM'),
         nextyearstartmonth: 'October',
-        // mainleadstatus :'בתהליך',
+        mainleadstatus: mtaFields['mainleadstatus'],
     };
-
-    if([1, 2].includes(+mtaFields['Event_Description_Code'])) {
-        fields['mainleadstatus'] = "חדש";
-    } else if ([4, 5].includes(+mtaFields['Event_Description_Code'])) {
-        fields['mainleadstatus'] = "פגישת יעוץ";
-    } else {
-        fields['mainleadstatus'] = "בתהליך";
-    }
 
     switch (+mtaFields['Event_Description_Code']) {
         case 1:
@@ -374,11 +382,16 @@ export const CRMToMautic = (mtaFields: Record<string, any>): Record<string, any>
     return fields;
 }
 
-export const leadsToMautic = (mtaFields: Record<string, any>): Record<string, any> => {
+export const leadsToMautic = (mtaFields: Record<string, any>[]): Record<string, any>[] => {
+    return Object.values(mtaFields).map(leadToMauticField)
+}
+
+const leadToMauticField = (mtaFields: Record<string, any>) => {
     return {
         firstname: mtaFields['FirstName'] && mtaFields['FirstName'].trim() || mtaFields['LastName'],
         lastname: mtaFields['LastName'],
         mobile: mtaFields['Mobile'],
         email: mtaFields['EMail'] && mtaFields['EMail'].trim() || mtaFields['Mobile'] + '@email.com',
+        mailingconfirmation: mtaFields['ApproveMail'],
     }
 }

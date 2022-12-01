@@ -101,8 +101,7 @@ const bootstrap = async () => {
         break;
       }
 
-      const allLeads = Object.values(crmData).map(lead => {
-        const fields = CRMToMautic(lead);
+      const allLeads = CRMToMautic(crmData).map(fields => {
         if ('studytype' in fields && !studyTypes.includes(fields.studytype)) {
           logger.error(JSON.stringify({
             skip: {
@@ -143,7 +142,7 @@ const bootstrap = async () => {
         clog('ERROR', e);
         break;
       }
-      const allLeads = Object.values(leadsData).map(leadsToMautic);
+      const allLeads = leadsToMautic(leadsData);
       await exportToMautic(allLeads);
     }
     clog('Done');
