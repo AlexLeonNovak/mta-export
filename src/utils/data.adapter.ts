@@ -338,8 +338,8 @@ const leadToMauticField = (mtaFields: Record<string, any>) => {
         email: mtaFields['EMail'] && mtaFields['EMail'].trim() || mtaFields['Mobile'] + '@email.com',
         mailingconfirmation: mtaFields['ApproveMail'] === "כן",
     }
-    if ('Description_of_Group_Code' in mtaFields) {
-        switch (+mtaFields['Description_of_Group_Code']) {
+    if ('Descritpion_of_group_code' in mtaFields) {
+        switch (+mtaFields['Descritpion_of_group_code']) {
             case 1155:
             case 1158:
             case 1129:
