@@ -7,27 +7,21 @@ import {Logger} from './utils/logger';
 import {clog} from './utils/clog';
 import {arrayChunk} from './utils/chunk.array';
 import {DateTime} from 'luxon';
-
-enum Source {
-  CRM = 'crm',
-  LEADS = 'leads'
-}
+import * as path from 'path';
+import {saveCSV} from './services/csv.service';
 
 const db = new DbService();
 const mauticApi = new MauticApiService();
 const logger = new Logger();
 
 const program = new Command();
-program.option('-s, --source <table>', 'Source table');
 program.option('-d, --fromDate <date>', 'Export items starting from date');
 program.parse(process.argv);
 
 const {
-  source = Source.CRM,
   fromDate = DateTime.now().minus({days: 1}).toFormat('yyyy-MM-dd'),
 } = program.opts();
 
-const {FETCH_LIMIT = 200} = process.env;
 
 const exportToMautic = async (allLeads) => {
   clog('Export data to mautic...');
@@ -81,70 +75,64 @@ const exportToMautic = async (allLeads) => {
 
 const bootstrap = async () => {
   clog('Start process');
-  clog('Source data:', source);
   clog('From date:', fromDate);
-  //const csvName = path.join(__dirname, '..', `${source}_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
-  if (source === Source.CRM) {
-    const studyTypes = await mauticApi.getFieldValues(Field.studytype);
-    const scheduleConsultants = await mauticApi.getFieldValues(Field.scheduleconsultant);
 
-    const count = await db.getCRMCount(fromDate);
-    clog('Count records:', count);
-    let crmData;
-    try {
-      clog('Getting data from DB...');
-      crmData = await db.getCRMData(fromDate);
-    } catch (e) {
-      clog('ERROR Message:', e.message);
-      clog('ERROR', e);
-      process.exit();
-    }
-    //saveCSV(csvName, crmData);
-    const allLeads = CRMToMautic(crmData).map(fields => {
-      if ('studytype' in fields && !studyTypes.includes(fields.studytype)) {
-        logger.error(JSON.stringify({
-          skip: {
-            field: 'studytype',
-            value: fields.studytype,
-          },
-        }));
-        delete fields.studytype;
-      }
-      if ('scheduleconsultant' in fields && !scheduleConsultants.includes(fields.scheduleconsultant)) {
-        logger.error(JSON.stringify({
-          skip: {
-            field: 'scheduleconsultant',
-            value: fields.scheduleconsultant,
-          },
-        }));
-        delete fields.scheduleconsultant;
-      }
-      return fields;
-    });
-    await exportToMautic(allLeads);
-    // saveCSV(csvName, leads);
+  const studyTypes = await mauticApi.getFieldValues(Field.studytype);
+  const scheduleConsultants = await mauticApi.getFieldValues(Field.scheduleconsultant);
 
-    clog('Done');
-  } else if (source === Source.LEADS) {
-    const count = await db.getLeadsCount(fromDate);
-    clog('Count records:', count);
-    let leadsData;
-    try {
-      clog('Getting data from DB...');
-      leadsData = await db.getLeadsData(fromDate);
-    } catch (e) {
-      clog('ERROR Message:', e.message);
-      clog('ERROR', e);
-      process.exit();
-    }
-    //saveCSV(csvName, leadsData);
-    const allLeads = leadsToMautic(leadsData);
-    await exportToMautic(allLeads);
-    clog('Done');
-  } else {
-    clog('ERROR: Source is not supported');
+  const crmCount = await db.getCRMCount(fromDate);
+  clog('CRM count records:', crmCount);
+  let crmData;
+  try {
+    clog('Getting data from DB...');
+    crmData = await db.getCRMData(fromDate);
+  } catch (e) {
+    clog('ERROR Message:', e.message);
+    clog('ERROR', e);
+    process.exit();
   }
+  let csvName = path.join(__dirname, '..', `crm_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
+  saveCSV(csvName, crmData);
+  const crmFields = CRMToMautic(crmData).map(fields => {
+    if ('studytype' in fields && !studyTypes.includes(fields.studytype)) {
+      logger.error(JSON.stringify({
+        skip: {
+          field: 'studytype',
+          value: fields.studytype,
+        },
+      }));
+      delete fields.studytype;
+    }
+    if ('scheduleconsultant' in fields && !scheduleConsultants.includes(fields.scheduleconsultant)) {
+      logger.error(JSON.stringify({
+        skip: {
+          field: 'scheduleconsultant',
+          value: fields.scheduleconsultant,
+        },
+      }));
+      delete fields.scheduleconsultant;
+    }
+    return fields;
+  });
 
+  const leadsCount = await db.getLeadsCount(fromDate);
+  clog('Leads count records:', leadsCount);
+  let leadsData;
+  try {
+    clog('Getting data from DB...');
+    leadsData = await db.getLeadsData(fromDate);
+  } catch (e) {
+    clog('ERROR Message:', e.message);
+    clog('ERROR', e);
+    process.exit();
+  }
+  csvName = path.join(__dirname, '..', `leads_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
+  saveCSV(csvName, leadsData);
+  const leadFields = leadsToMautic(leadsData);
+  const allLeads = [...crmFields, ...leadFields];
+  clog('Total count:', allLeads.length);
+  await exportToMautic(allLeads);
+  clog('Done');
 }
 
 bootstrap();

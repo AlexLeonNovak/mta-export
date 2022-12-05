@@ -6,8 +6,6 @@
   "scripts": {
     "build": "npx tsc",
     "start": "npx tsc && node dist/index.js",
-    "start:crm": "npx tsc && node dist/index.js -s crm",
-    "start:leads": "npx tsc && node dist/index.js -s leads",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
