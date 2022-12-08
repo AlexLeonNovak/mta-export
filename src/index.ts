@@ -79,12 +79,11 @@ const bootstrap = async () => {
   const studyTypes = await mauticApi.getFieldValues(Field.studytype);
   const scheduleConsultants = await mauticApi.getFieldValues(Field.scheduleconsultant);
 
-  const crmCount = await db.getCRMCount(fromDate);
-  clog('CRM count records:', crmCount);
   let crmData;
   try {
     clog('Getting data from DB...');
     crmData = await db.getCRMData(fromDate);
+    clog('CRM count records:', crmData.length);
   } catch (e) {
     clog('ERROR Message:', e.message);
     clog('ERROR', e);
@@ -114,12 +113,11 @@ const bootstrap = async () => {
     return fields;
   });
 
-  const leadsCount = await db.getLeadsCount(fromDate);
-  clog('Leads count records:', leadsCount);
   let leadsData;
   try {
     clog('Getting data from DB...');
     leadsData = await db.getLeadsData(fromDate);
+    clog('Leads count records:', leadsData.length);
   } catch (e) {
     clog('ERROR Message:', e.message);
     clog('ERROR', e);
