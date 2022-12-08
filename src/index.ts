@@ -15,9 +15,9 @@ const mauticApi = new MauticApiService();
 const logger = new Logger();
 
 const program = new Command();
-program.option('-d, --fromDate <date>', 'Export items starting from date');
+program.option('-fd, --fromDate <date>', 'Export items starting from date');
 program.parse(process.argv);
-
+console.log(program.opts())
 const {
   fromDate = DateTime.now().minus({days: 1}).toFormat('yyyy-MM-dd'),
 } = program.opts();
@@ -91,8 +91,8 @@ const bootstrap = async () => {
     clog('ERROR', e);
     process.exit();
   }
-  let csvName = path.join(__dirname, '..', `crm_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
-  saveCSV(csvName, crmData);
+  //let csvName = path.join(__dirname, '..', `crm_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
+  //saveCSV(csvName, crmData);
   const crmFields = CRMToMautic(crmData).map(fields => {
     if ('studytype' in fields && !studyTypes.includes(fields.studytype)) {
       logger.error(JSON.stringify({
@@ -126,8 +126,8 @@ const bootstrap = async () => {
     clog('ERROR', e);
     process.exit();
   }
-  csvName = path.join(__dirname, '..', `leads_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
-  saveCSV(csvName, leadsData);
+  //csvName = path.join(__dirname, '..', `leads_${DateTime.now().toFormat('yyyy_MM_dd_HHmmss')}.csv`);
+  //saveCSV(csvName, leadsData);
   const leadFields = leadsToMautic(leadsData);
   const allLeads = [...crmFields, ...leadFields];
   clog('Total count:', allLeads.length);

@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import mssql, {ConnectionPool} from 'mssql';
 
 const { MSSQL_SERVER, MSSQL_DATABASE, MSSQL_USER,	MSSQL_PASSWORD } = process.env;
@@ -29,25 +30,26 @@ export class DbService {
 
   async getCRMData(fromDate: string) {
       const sql = `SELECT *
-                   FROM dbo.vw_Personalx_Crm
+                   FROM dbo.vw_Personalx_Crm 
                    where (Phone_Number_3 != '' OR Home_email != '')
-                     AND (Home_email IN (SELECT Email FROM [GilboaNet].[dbo].[vw_Personalx_Leads] WHERE Creation_Date >= '${fromDate}')
-                      OR Phone_Number_3 IN (SELECT Mobile FROM [GilboaNet].[dbo].[vw_Personalx_Leads] WHERE Creation_Date >= '${fromDate}'))
+                     AND (Home_email IN (SELECT Email FROM dbo.vw_Personalx_Leads WHERE CreationTime >= '${fromDate}')
+                      OR Phone_Number_3 IN (SELECT Mobile FROM dbo.vw_Personalx_Leads WHERE CreationTime >= '${fromDate}'))
                    ;
       `;
       //OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY
       //WHERE (Email IS NOT NULL OR LTRIM(RTRIM(Email)) != '') AND Mobile IS NOT NULL
       const connection = await this.getConnection();
       const {recordset} = await connection.request().query(sql);
-      return recordset;
+      const fd = new Date(fromDate);
+      return recordset.filter(record => record.timestamp >= fd);
   }
 
   async getCRMCount(fromDate: string) {
     const sql = `SELECT COUNT(*) c
                  FROM dbo.vw_Personalx_Crm
                  where (Phone_Number_3 != '' OR Home_email != '')
-                   AND (Home_email IN (SELECT Email FROM [GilboaNet].[dbo].[vw_Personalx_Leads] WHERE Creation_Date >= '${fromDate}')
-                    OR Phone_Number_3 IN (SELECT Mobile FROM [GilboaNet].[dbo].[vw_Personalx_Leads] WHERE Creation_Date >= '${fromDate}'))
+                   AND (Home_email IN (SELECT Email FROM [GilboaNet].[dbo].[vw_Personalx_Leads] WHERE CreationTime >= '${fromDate}')
+                    OR Phone_Number_3 IN (SELECT Mobile FROM [GilboaNet].[dbo].[vw_Personalx_Leads] WHERE CreationTime >= '${fromDate}'))
   `;
     const connection = await this.getConnection();
     const { recordset } = await connection.request().query(sql);
@@ -65,7 +67,7 @@ export class DbService {
 
   async getLeadsCount(fromDate: string) {
     const sql = `SELECT COUNT(*) c FROM dbo.vw_Personalx_Leads 
-        WHERE (Mobile != '' OR Email != '') AND Creation_Date >= '${fromDate}'
+        WHERE (Mobile != '' OR Email != '') AND CreationTime >= '${fromDate}'
   `;
     const connection = await this.getConnection();
     const { recordset } = await connection.request().query(sql);
@@ -74,7 +76,7 @@ export class DbService {
 
   async getLeadsData(fromDate: string) {
     const sql = `SELECT * FROM dbo.vw_Personalx_Leads
-                 WHERE (Mobile != '' OR Email != '') AND Creation_Date >= '${fromDate}'
+                 WHERE (Mobile != '' OR Email != '') AND CreationTime >= '${fromDate}'
                    ;
       `;
     //OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY
