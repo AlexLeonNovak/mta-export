@@ -15,9 +15,8 @@ const mauticApi = new MauticApiService();
 const logger = new Logger();
 
 const program = new Command();
-program.option('-fd, --fromDate <date>', 'Export items starting from date');
+program.option('-fd, --from-date <date>', 'Export items starting from date');
 program.parse(process.argv);
-console.log(program.opts())
 const {
   fromDate = DateTime.now().minus({days: 1}).toFormat('yyyy-MM-dd'),
 } = program.opts();
