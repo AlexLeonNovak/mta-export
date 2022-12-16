@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
+    "start:t": "node dist/index.js --from-date 2022-12-05",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],

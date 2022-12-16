@@ -32,8 +32,8 @@ export class DbService {
       const sql = `SELECT *
                    FROM dbo.vw_Personalx_Crm 
                    where (Phone_Number_3 != '' OR Home_email != '')
-                     AND (Home_email IN (SELECT Email FROM dbo.vw_Personalx_Leads WHERE CreationTime >= '${fromDate}')
-                      OR Phone_Number_3 IN (SELECT Mobile FROM dbo.vw_Personalx_Leads WHERE CreationTime >= '${fromDate}'))
+                     AND (Home_email IN (SELECT Email FROM dbo.vw_Personalx_Leads WHERE Email != '' AND CreationTime >= '${fromDate}')
+                      OR Phone_Number_3 IN (SELECT Mobile FROM dbo.vw_Personalx_Leads WHERE Mobile != '' AND CreationTime >= '${fromDate}'))
                    ;
       `;
       //OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY
