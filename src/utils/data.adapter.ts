@@ -152,42 +152,48 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
             break;
         case 84:
             fields['opendaystatus'] = 'מגיע ליום פתוח';
-            fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
+            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
             fields['open_day_date'] = new Date('1/27/2023 11:00:00');
+            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
             break;
         case 108:
             fields['opendaystatus'] = 'מגיע למפגש';
-            fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
+            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
             fields['open_day_date'] = new Date('1/27/2023 11:00:00');
+            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
             break;
         case 91:
             fields['opendaystatus'] = 'מתלבט אם להגיע למפגש';
-            fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
+            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
             fields['open_day_date'] = new Date('1/27/2023 11:00:00');
-
+            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
             // fields['opendaystatus'] = 'מתלבט אם להגיע ליום פתוח';
-            // fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
+            // fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
             // fields['open_day_date'] = new Date('1/27/2023 11:00:00');
             break;
         case 83:
             fields['opendaystatus'] = 'לא מגיע ליום פתוח ';
-            fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
+            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
             fields['open_day_date'] = new Date('1/27/2023 11:00:00');
+            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
             break;
         case 17:
             fields['opendaystatus'] = 'מעוניין-רוצה להגיע ליום פתוח ';
-            fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
+            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
             fields['open_day_date'] = new Date('1/27/2023 11:00:00');
+            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
             break;
         case 113:
             fields['opendaystatus'] = 'מעוניין להגיע למפגש פתוח';
-            fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
+            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
             fields['open_day_date'] = new Date('1/27/2023 11:00:00');
+            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
             break;
         case 205:
             fields['opendaystatus'] = 'יעוץ-מעוניין להגיע ליום פתוח ';
-            fields['open_day_segment'] = new Date('5/28/2022 10:00:00');
+            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
             fields['open_day_date'] = new Date('1/27/2023 11:00:00');
+            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
             break;
         case 61:
             fields['postponestatus'] = 'דחית לימודים לאוקטובר הבא';
