@@ -105,7 +105,7 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
         case 10:
             fields['psychometricstatus'] = 'פסיכומטרי דצמבר מתכוון לעשות';
             fields['psychometricmonth'] = 'דצמבר';
-            fields['Psychometricdate'] = new Date('12/23/2022 11:38:00');
+            fields['psychometric_date'] = new Date('12/23/2022 11:38:00');
             fields['psychometric_result'] = new Date('2/2/2023 11:00:00');
             break;
         case 11:
