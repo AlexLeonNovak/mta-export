@@ -106,25 +106,25 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
             fields['psychometricstatus'] = 'פסיכומטרי דצמבר מתכוון לעשות';
             fields['psychometricmonth'] = 'דצמבר';
             fields['Psychometricdate'] = new Date('12/23/2022 11:38:00');
-            fields['psychometricresult'] = new Date('2/2/2023 11:00:00');
+            fields['psychometric_result'] = new Date('2/2/2023 11:00:00');
             break;
         case 11:
             fields['psychometricstatus'] = 'פסיכומטרי מרץ מתכוון לעשות';
             fields['psychometricmonth'] = 'מרץ';
-            fields['Psychometricdate'] = new Date('4/2/2023 11:00:00');
-            fields['psychometricresult'] = new Date('5/16/2022 11:00:00');
+            fields['psychometric_date'] = new Date('4/2/2023 11:00:00');
+            fields['psychometric_result'] = new Date('5/16/2022 11:00:00');
             break;
         case 14:
             fields['psychometricstatus'] = 'פסיכומטרי יולי מתכוון לעשות';
             fields['psychometricmonth'] = 'יולי';
-            fields['Psychometricdate'] = new Date('7/5/2023 11:00:00');
-            fields['psychometricresult'] = new Date('8/15/2023 11:00:00');
+            fields['psychometric_date'] = new Date('7/5/2023 11:00:00');
+            fields['psychometric_result'] = new Date('8/15/2023 11:00:00');
             break;
         case 13:
             fields['psychometricstatus'] = 'פסיכומטרי ספטמבר מתכוון לעשות';
             fields['psychometricmonth'] = 'ספטמבר';
-            fields['Psychometricdate'] = new Date('9/4/2023 11:00:00');
-            fields['psychometricresult'] = new Date('10/15/2023 11:00:00');
+            fields['psychometric_date'] = new Date('9/4/2023 11:00:00');
+            fields['psychometric_result'] = new Date('10/15/2023 11:00:00');
             break;
         case 122:
             fields['notsurestatus'] = 'מתלבט עומד בחתכי קבלה';
