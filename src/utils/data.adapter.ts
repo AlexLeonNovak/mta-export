@@ -32,9 +32,9 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
         //Consultantname: mtaFields['Name_of_Consultant'],
         consultdate,
         consulthour: mtaFields['Scheduled_Hour'],
-        yearstartdate: new Date('October 23, 2022 11:00 AM'),
+        yearstartdate: new Date('23-10-2022T11:00:00'),
         yearstartmonth: 'October',
-        nextyearstartdate: new Date('October 22, 2023 11:00 AM'),
+        nextyearstartdate: new Date('22-10-2022T11:00:00'),
         nextyearstartmonth: 'October',
         mainleadstatus: mtaFields['mainleadstatus'] || 'חדש',
     };
@@ -105,26 +105,26 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
         case 10:
             fields['psychometricstatus'] = 'פסיכומטרי דצמבר מתכוון לעשות';
             fields['psychometricmonth'] = 'דצמבר';
-            fields['psychometric_date'] = new Date('12/23/2022 11:38:00');
-            fields['psychometric_result'] = new Date('2/2/2023 11:00:00');
+            fields['psychometric_date'] = new Date('23-12-2022T11:38:00');
+            fields['psychometric_result'] = new Date('02-02-2023T11:00:00');
             break;
         case 11:
             fields['psychometricstatus'] = 'פסיכומטרי מרץ מתכוון לעשות';
             fields['psychometricmonth'] = 'מרץ';
-            fields['psychometric_date'] = new Date('4/2/2023 11:00:00');
-            fields['psychometric_result'] = new Date('5/16/2022 11:00:00');
+            fields['psychometric_date'] = new Date('02-04-2023T11:00:00');
+            fields['psychometric_result'] = new Date('16-05-2022T11:00:00');
             break;
         case 14:
             fields['psychometricstatus'] = 'פסיכומטרי יולי מתכוון לעשות';
             fields['psychometricmonth'] = 'יולי';
-            fields['psychometric_date'] = new Date('7/5/2023 11:00:00');
-            fields['psychometric_result'] = new Date('8/15/2023 11:00:00');
+            fields['psychometric_date'] = new Date('05-07-2023T11:00:00');
+            fields['psychometric_result'] = new Date('15-08-2023T11:00:00');
             break;
         case 13:
             fields['psychometricstatus'] = 'פסיכומטרי ספטמבר מתכוון לעשות';
             fields['psychometricmonth'] = 'ספטמבר';
-            fields['psychometric_date'] = new Date('9/4/2023 11:00:00');
-            fields['psychometric_result'] = new Date('10/15/2023 11:00:00');
+            fields['psychometric_date'] = new Date('04-09-2023T11:00:00');
+            fields['psychometric_result'] = new Date('15-10-2023T11:00:00');
             break;
         case 122:
             fields['notsurestatus'] = 'מתלבט עומד בחתכי קבלה';
@@ -137,74 +137,74 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
             break;
         case 125:
             fields['bagrutstatus'] = 'מתלבט צריך לשפר בגרות';
-            fields['bagrutstartdate'] = new Date('4/24/2023 11:00:00');
-            fields['bagrutenddate'] = new Date('7/8/2023 11:00:00');
+            fields['bagrutstartdate'] = new Date('24-04-2023T11:00:00');
+            fields['bagrutenddate'] = new Date('08-07-2023T11:00:00');
             break;
         case 126:
             fields['bagrutstatus'] = 'שיפור בגרות חורף';
-            fields['bagrutstartdate'] = new Date('1/1/2023 11:00:00');
-            fields['bagrutenddate'] = new Date('2/8/2022 11:00:00');
+            fields['bagrutstartdate'] = new Date('01-01-2023T11:00:00');
+            fields['bagrutenddate'] = new Date('08-02-2022T11:00:00');
             break;
         case 127:
             fields['bagrutstatus'] = 'שיפור בגרות קיץ';
-            fields['bagrutstartdate'] = new Date('4/24/2023 11:00:00');
-            fields['bagrutenddate'] = new Date('7/8/2023 11:00:00');
+            fields['bagrutstartdate'] = new Date('24-04-2023T11:00:00');
+            fields['bagrutenddate'] = new Date('08-07-2023T11:00:00');
             break;
         case 84:
             fields['opendaystatus'] = 'מגיע ליום פתוח';
-            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
-            fields['open_day_date'] = new Date('1/27/2023 11:00:00');
-            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
+            fields['open_day_segment'] = new Date('27-01-2023T11:00:00');
+            fields['open_day_date'] = new Date('27-01-2023T11:00:00');
+            fields['opendaydatesunday'] = new Date('29-01-2023T11:00:00');
             break;
         case 108:
             fields['opendaystatus'] = 'מגיע למפגש';
-            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
-            fields['open_day_date'] = new Date('1/27/2023 11:00:00');
-            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
+            fields['open_day_segment'] = new Date('27-01-2023T11:00:00');
+            fields['open_day_date'] = new Date('27-01-2023T11:00:00');
+            fields['opendaydatesunday'] = new Date('29-01-2023T11:00:00');
             break;
         case 91:
             fields['opendaystatus'] = 'מתלבט אם להגיע למפגש';
-            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
-            fields['open_day_date'] = new Date('1/27/2023 11:00:00');
-            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
+            fields['open_day_segment'] = new Date('27-01-2023T11:00:00');
+            fields['open_day_date'] = new Date('27-01-2023T11:00:00');
+            fields['opendaydatesunday'] = new Date('29-01-2023T11:00:00');
             // fields['opendaystatus'] = 'מתלבט אם להגיע ליום פתוח';
-            // fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
-            // fields['open_day_date'] = new Date('1/27/2023 11:00:00');
+            // fields['open_day_segment'] = new Date('27-01-2023T11:00:00');
+            // fields['open_day_date'] = new Date('27-01-2023T11:00:00');
             break;
         case 83:
             fields['opendaystatus'] = 'לא מגיע ליום פתוח ';
-            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
-            fields['open_day_date'] = new Date('1/27/2023 11:00:00');
-            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
+            fields['open_day_segment'] = new Date('27-01-2023T11:00:00');
+            fields['open_day_date'] = new Date('27-01-2023T11:00:00');
+            fields['opendaydatesunday'] = new Date('29-01-2023T11:00:00');
             break;
         case 17:
             fields['opendaystatus'] = 'מעוניין-רוצה להגיע ליום פתוח ';
-            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
-            fields['open_day_date'] = new Date('1/27/2023 11:00:00');
-            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
+            fields['open_day_segment'] = new Date('27-01-2023T11:00:00');
+            fields['open_day_date'] = new Date('27-01-2023T11:00:00');
+            fields['opendaydatesunday'] = new Date('29-01-2023T11:00:00');
             break;
         case 113:
             fields['opendaystatus'] = 'מעוניין להגיע למפגש פתוח';
-            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
-            fields['open_day_date'] = new Date('1/27/2023 11:00:00');
-            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
+            fields['open_day_segment'] = new Date('27-01-2023T11:00:00');
+            fields['open_day_date'] = new Date('27-01-2023T11:00:00');
+            fields['opendaydatesunday'] = new Date('29-01-2023T11:00:00');
             break;
         case 205:
             fields['opendaystatus'] = 'יעוץ-מעוניין להגיע ליום פתוח ';
-            fields['open_day_segment'] = new Date('1/27/2023 11:00:00');
-            fields['open_day_date'] = new Date('1/27/2023 11:00:00');
-            fields['opendaydatesunday'] = new Date('1/29/2023 11:00:00');
+            fields['open_day_segment'] = new Date('27-01-2023T11:00:00');
+            fields['open_day_date'] = new Date('27-01-2023T11:00:00');
+            fields['opendaydatesunday'] = new Date('29-01-2023T11:00:00');
             break;
         case 61:
             fields['postponestatus'] = 'דחית לימודים לאוקטובר הבא';
-            fields['octoberdate'] = new Date('10/23/2022 10:00:00');
+            fields['octoberdate'] = new Date('23-10-2022T10:00:00');
             break;
         case 426:
             fields['postponestatus'] = 'מעוניין להירשם לאוקטובר הקרוב';
             break;
         case 60:
             fields['postponestatus'] = 'דחית לימודים לסמסטר אביב';
-            fields['springdate'] = new Date('2/28/2023 10:00:00');
+            fields['springdate'] = new Date('28-02-2023T10:00:00');
             break;
         case 69:
             fields['preparesstatus'] = 'מתלבט רלבנטי למכינה';
