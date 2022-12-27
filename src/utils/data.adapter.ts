@@ -32,7 +32,7 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
         //Consultantname: mtaFields['Name_of_Consultant'],
         consultdate,
         consulthour: mtaFields['Scheduled_Hour'],
-        yearstartdate: new Date('2022-10-23T11:00:00'),
+        yearstartdate: new Date('2023-10-22T11:00:00'),
         yearstartmonth: 'October',
         nextyearstartdate: new Date('2022-10-22T11:00:00'),
         nextyearstartmonth: 'October',
