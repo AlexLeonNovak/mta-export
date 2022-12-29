@@ -21,7 +21,7 @@ export const CRMToMautic = (mtaFields: Record<string, any>[]): Record<string, an
 const crmToMauticField = (mtaFields: Record<string, any>) => {
     const consultdate = DateTime.fromFormat(mtaFields['Planned_Date'], 'dd/MM/yyyy').toJSDate();
     const consdatetime = DateTime.fromFormat(
-      `${mtaFields['Planned_Date']} 00:00`,
+      `${mtaFields['Planned_Date']} 12:00`,
       'dd/MM/yyyy hh:mm'
     ).toJSDate();
     const newleaddate = DateTime.fromFormat(mtaFields['Creation_Date'], 'yyyyMMdd').toJSDate();
