@@ -20,6 +20,10 @@ export const CRMToMautic = (mtaFields: Record<string, any>[]): Record<string, an
 
 const crmToMauticField = (mtaFields: Record<string, any>) => {
     const consultdate = DateTime.fromFormat(mtaFields['Planned_Date'], 'dd/MM/yyyy').toJSDate();
+    const consdatetime = DateTime.fromFormat(
+      `${mtaFields['Planned_Date']} ${mtaFields['Scheduled_Hour']}`,
+      'dd/MM/yyyy hh:mm'
+    ).toJSDate();
     const newleaddate = DateTime.fromFormat(mtaFields['Creation_Date'], 'yyyyMMdd').toJSDate();
     const fields = {
         firstname: mtaFields['FirstName'] && mtaFields['FirstName'].trim() || mtaFields['Surname'],
@@ -31,6 +35,7 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
         //signupdate: mtaFields['RegistrationDate'],
         //Consultantname: mtaFields['Name_of_Consultant'],
         consultdate,
+        consdatetime,
         consulthour: mtaFields['Scheduled_Hour'],
         yearstartdate: new Date('2023-10-22T11:00:00'),
         yearstartmonth: 'October',
