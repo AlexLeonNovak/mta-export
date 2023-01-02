@@ -19,12 +19,13 @@ export const CRMToMautic = (mtaFields: Record<string, any>[]): Record<string, an
 }
 
 const crmToMauticField = (mtaFields: Record<string, any>) => {
-    const consultdate = DateTime.fromFormat(mtaFields['Planned_Date'], 'dd/MM/yyyy').toJSDate();
+    const consultdate = DateTime.fromFormat(mtaFields['Planned_Date'], 'dd/MM/yyyy', { zone: 'utc' }).toJSDate();
     const consdatetime = DateTime.fromFormat(
       `${mtaFields['Planned_Date']} 12:00`,
-      'dd/MM/yyyy hh:mm'
+      'dd/MM/yyyy hh:mm',
+      { zone: 'utc' }
     ).toJSDate();
-    const newleaddate = DateTime.fromFormat(mtaFields['Creation_Date'], 'yyyyMMdd').toJSDate();
+    const newleaddate = DateTime.fromFormat(mtaFields['Creation_Date'], 'yyyyMMdd', { zone: 'utc' }).toJSDate();
     const fields = {
         firstname: mtaFields['FirstName'] && mtaFields['FirstName'].trim() || mtaFields['Surname'],
         lastname: mtaFields['Surname'],
