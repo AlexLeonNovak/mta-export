@@ -31,7 +31,7 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
         lastname: mtaFields['Surname'],
         mobile: mtaFields['Phone_Number_3'],
         email: mtaFields['Home_email'] && mtaFields['Home_email'].trim() || mtaFields['Phone_Number_3'] + '@email.com',
-        mailingconfirmation: 'mailingconfirmationcode' in mtaFields && +mtaFields['mailingconfirmationcode'] === 1 || false, // lead tbl
+        mailingconfirmation: +mtaFields['mailingconfirmationcode'] === 1,
         newleaddate,
         //signupdate: mtaFields['RegistrationDate'],
         //Consultantname: mtaFields['Name_of_Consultant'],
@@ -111,8 +111,8 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
         case 10:
             fields['psychometricstatus'] = 'פסיכומטרי דצמבר מתכוון לעשות';
             fields['psychometricmonth'] = 'דצמבר';
-            fields['psychometric_date'] = new Date('2022-12-23T11:38:00');
-            fields['psychometric_result'] = new Date('2023-02-02T11:00:00');
+            // fields['psychometric_date'] = new Date('2022-12-23T11:38:00');
+            // fields['psychometric_result'] = new Date('2023-02-02T11:00:00');
             break;
         case 11:
             fields['psychometricstatus'] = 'פסיכומטרי מרץ מתכוון לעשות';
