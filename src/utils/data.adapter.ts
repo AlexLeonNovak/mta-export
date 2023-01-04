@@ -178,13 +178,13 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
             // fields['open_day_date'] = new Date('2023-01-27T11:00:00');
             break;
         case 83:
-            fields['opendaystatus'] = 'לא מגיע ליום פתוח ';
+            fields['opendaystatus'] = 'לא מגיע ליום פתוח';
             fields['open_day_segment'] = new Date('2023-01-27T11:00:00');
             fields['open_day_date'] = new Date('2023-01-27T11:00:00');
             fields['opendaydatesunday'] = new Date('2023-01-29T11:00:00');
             break;
         case 17:
-            fields['opendaystatus'] = 'מעוניין-רוצה להגיע ליום פתוח ';
+            fields['opendaystatus'] = 'מעוניין-רוצה להגיע ליום פתוח';
             fields['open_day_segment'] = new Date('2023-01-27T11:00:00');
             fields['open_day_date'] = new Date('2023-01-27T11:00:00');
             fields['opendaydatesunday'] = new Date('2023-01-29T11:00:00');
@@ -196,7 +196,7 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
             fields['opendaydatesunday'] = new Date('2023-01-29T11:00:00');
             break;
         case 205:
-            fields['opendaystatus'] = 'יעוץ-מעוניין להגיע ליום פתוח ';
+            fields['opendaystatus'] = 'יעוץ-מעוניין להגיע ליום פתוח';
             fields['open_day_segment'] = new Date('2023-01-27T11:00:00');
             fields['open_day_date'] = new Date('2023-01-27T11:00:00');
             fields['opendaydatesunday'] = new Date('2023-01-29T11:00:00');
