@@ -231,6 +231,7 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
             fields['closedstatus'] = 'סגירה טכנית/ באישור מנהלת';
             break;
         case 131:
+        case 93:
             fields['onlineregistrationstatus'] = 'הופנה לרישום מקוון';
             break;
         case 90:
