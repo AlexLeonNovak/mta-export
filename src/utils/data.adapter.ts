@@ -23,7 +23,7 @@ const crmToMauticField = (mtaFields: Record<string, any>) => {
     const consdatetime = DateTime.fromFormat(
       `${mtaFields['Planned_Date']} 12:00`,
       'dd/MM/yyyy hh:mm',
-      { zone: 'utc' }
+      // { zone: 'utc' }
     ).toJSDate();
     const newleaddate = DateTime.fromFormat(mtaFields['Creation_Date'], 'yyyyMMdd', { zone: 'utc' }).toJSDate();
     const fields = {
